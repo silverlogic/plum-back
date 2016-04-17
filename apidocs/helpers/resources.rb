@@ -73,6 +73,15 @@ module Resources
       }
   }
 
+  RULE ||= {
+      id: 1,
+      type: 'merchant',
+      merchant_types: [
+          'MCT_RECREATION',
+          'MCT_ELECTRONICS',
+      ]
+  }
+
   USER ||= {
     id: 1,
     email: 'john@gmail.com',

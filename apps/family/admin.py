@@ -10,7 +10,7 @@ class FamilyAdmin(admin.ModelAdmin):
 class ParentAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('user', 'first_name', 'last_name',)
+            'fields': ('family', 'user', 'first_name', 'last_name',)
         }),
     )
 
@@ -18,7 +18,7 @@ class ParentAdmin(admin.ModelAdmin):
 class KidAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('user', 'name',)
+            'fields': ('family', 'user', 'name', 'avatar',)
         }),
     )
 

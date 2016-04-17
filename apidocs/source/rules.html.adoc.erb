@@ -1,0 +1,52 @@
+---
+title: Rules
+---
+
+= Rules
+
+== Object
+
+[cols="2,1,5"]
+|===
+|Name |Type |Description
+
+|`id` | `int` |
+|`card` | `int` | id of the card the rule controls
+|`type` | `string` a| Possible values: 
+
+* `global`
++
+Block all transactions no matter what
+* `merchant`
++
+Block transactions for specific merchant types / categories.
+
+|`merchant_types` | `string[]` a| When `type` is `merchant`.  A list of disallowed merchant types.  Possible values:
+
+* `MCT_ADULT_ENTERTAINMENT`
+* `MCT_AIRFARE`
+* `MCT_ALCOHOL`
+* `MCT_APPAREL_AND_ACCESSORIES`
+* `MCT_AUTOMOTIVE`
+* `MCT_CAR_RENTAL`
+* `MCT_ELECTRONICS`
+* `MCT_ENTERTAINMENT_AND_SPORTINGEVENTS`
+* `MCT_GAMBLING`
+* `MCT_GAS_AND_PETROLEUM`
+* `MCT_GROCERY`
+* `MCT_HOTEL_AND_LODGING`
+* `MCT_HOUSEHOLD`
+* `MCT_PERSONAL_CARE`
+* `MCT_RECREATION`
+* `MCT_SMOKE_AND_TOBACCO`
+
+|===
+
+=== Example
+
+++++
+<%= json :rule %>
+++++
+
+
+// vim: set ft=asciidoc:

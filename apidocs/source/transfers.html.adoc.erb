@@ -1,0 +1,26 @@
+---
+title: Transfers
+---
+
+= Transfers
+
+== Create
+
+[source]
+----
+POST /transfers
+----
+
+=== Input
+
+[cols="2,1,5"]
+|===
+|Name |Type |Description
+
+|`from_card` | `int` | id of the card to transfer the money from.
+|`to_card` | `int` | id of the to card to transfer the money to.
+|`amount` | `number` | How much to transfer.
+|===
+
+
+// vim: set ft=asciidoc:
