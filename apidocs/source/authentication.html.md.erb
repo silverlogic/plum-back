@@ -1,0 +1,17 @@
+---
+title: Authentication
+---
+
+# Authentication
+
+There is only one way to authenticate requests.  Requests that require authentication will sometimes
+return `404 Not Found` instead of `403 Forbidden` to prevent leaking private data.  To authenticate a request
+send an auth token in the `Authorization` HTTP header.  To retrieve an auth token see the <%= link_to('Login', '/users#login') %>
+end point.
+
+<pre class="terminal">
+$ curl -H "Authorization: Token AUTH-TOKEN" https://api.example.com
+</pre>
+
+
+[//]: # vim: set ft=markdown:

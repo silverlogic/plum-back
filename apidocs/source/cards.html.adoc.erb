@@ -1,0 +1,85 @@
+---
+title: Cards
+---
+
+= Cards
+
+
+== Object
+
+[cols="2,1,5"]
+|===
+|Name |Type |Description
+
+|`id` | `int` | unique identifier
+|`owner_type` | `string` | What type of entity owns the card.  Possible values: `parent`, `kid`.
+|`owner_id` | `int` | unique identifier of the owner entity.
+|`name_on_card` | `string` |
+|`number` | `string` |
+|`expiration_date` | `date` | When the card expires.  Day can be ignored.
+|`type` | `string` | See https://developer.visa.com/guides/request_response_codes#Card_Type for possible values.
+|`sub_type` | `string` | See https://developer.visa.com/guides/request_response_codes#Card_Sub_Type for possible values.
+|===
+
+=== Example
+
+++++
+<%= json :card %>
+++++
+
+
+== Create
+
+[source]
+----
+POST /cards
+----
+
+=== Input
+
+[cols="2,1,5"]
+|===
+|Name |Type |Description
+|`owner_type` | `string` | **Required** What type of entity owns the card.  Possible values: `parent`, `kid`.
+|`owner_id` | `int` | **Required** unique identifier of the owner entity.
+|`name_on_card` | `string` | **Required**
+|`number` | `string` | **Required**
+|`expiration_date` | `date` | **Required** When the card expires.  Day does not matter.
+
+|===
+
+
+== Retrieve
+
+[source]
+----
+GET /cards/:id
+----
+
+
+== Update
+
+[source]
+----
+PUT /cards/:id
+PATCH /cards/:id
+----
+
+=== Input
+
+Same as create.
+
+
+== Delete
+
+[source]
+----
+DELETE /cards/:id
+----
+
+== List
+
+See parent list and kid list :))))
+
+
+// vim: set ft=asciidoc:

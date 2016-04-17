@@ -1,0 +1,7 @@
+-r base.txt
+# media/static file storage
+django-storages==1.4
+django-s3-folder-storage==0.3
+
+# error logging using sentry
+raven==5.10.2

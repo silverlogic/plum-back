@@ -1,0 +1,29 @@
+---
+title: Data Types
+---
+
+= Data Types
+
+[cols="1,3,5a"]
+|===
+|Type |Description |Example
+
+|`date` | https://en.wikipedia.org/wiki/ISO_8601[ISO 8601] formatted string. | 1990-10-13
+|`datetime` | https://en.wikipedia.org/wiki/ISO_8601[ISO 8601] formatted string. | 2016-03-11T03:45:40+00:00
+
+|`image`
+|To set: a base64 encoded string.
+
+When read: a hash with keys that are urls to various sizes of the image.  Every image will at least have
+a `full_size` key which is the image in the same resolution as it was uploaded.
+| When read:
+
+++++
+<%= json \
+    full_size: 'https://example.com/image.png'
+%>
+++++
+
+|===
+
+// vim: set ft=asciidoc:

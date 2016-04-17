@@ -1,0 +1,41 @@
+---
+title: Pagination
+---
+
+# Pagination
+
+All end points that return multiple objects are paginated by default.  All paginated end points accept
+pagination parameters and wrap responses in a paging object.  Each page holds a maximum of 25 objects.
+
+## The pagination object
+
+Name | Type | Description
+---- | ---- | -----------
+`count` | `integer` | The total number of objects available across all the pages.
+`next` | `string` | The url to the next page or null if you are on the last page.
+`prev` | `string`| The url to the previous page or null if you are on the first page.
+`results` | `array` | The returned objects.
+
+## Parameters
+
+Name | Type | Description
+---- | ---- | -----------
+`page` | `integer` | The page number to view.  Defaults to the first page: 1.
+
+## Example
+
+<pre class="terminal">
+$ curl https://api.example.com/some-objects
+
+HTTP/1.1 200 OK
+
+{
+  "count": 322,
+  "next": "https://api.example.com/some-objects?page=2",
+  "prev": null,
+  "results": []
+}
+</pre>
+
+
+[//]: # vim: set ft=markdown:

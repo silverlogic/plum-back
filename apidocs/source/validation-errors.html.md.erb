@@ -1,0 +1,36 @@
+---
+title: Validaton Errors
+---
+
+# Validation Errors
+
+If a request receives an invalid request body it will result in a `400 Bad Request` response.  The
+response body will be the validation errors.  A validation error is an object.  The key is the
+field that failed and the value is an array of error messages.  If an error is not specific to one field
+it will be under the `non_field_errors` key.
+
+~~~
+HTTP/1.1 400 Bad Request
+
+{
+  "non_field_errors": ["You are not cool enough."],
+  "email": ["That email is already in use."]
+}
+~~~
+
+If the validation error occured on a nested object
+the key will be the nested object name and the value will be a validation error.
+
+~~~
+HTTP/1.1 400 Bad Request
+
+  {
+    "user": {
+        "non_field_errors": ["You are not cool enough."],
+        "email": ["That email is already in use."]
+      }
+  }
+~~~
+
+
+[//]: # vim: set ft=markdown:

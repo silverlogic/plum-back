@@ -1,0 +1,85 @@
+---
+title: Kids
+---
+
+= Kids
+
+== Object
+
+[cols="2,1,5"]
+|===
+|Name |Type |Description
+
+|`id` | `int` | unique identifier
+|`name` | `string` |
+|`avatar` | link:data-types[`image`] |
+|===
+
+=== Example
+
+++++
+<%= json :kid %>
+++++
+
+
+== Create
+
+[source]
+----
+POST /kids
+----
+
+=== Input
+
+[cols="2,1,5"]
+|===
+|Name |Type |Description
+
+|`name` | `string` |
+|`avatar` | link:data-types[`image`] |
+|===
+
+
+== Retrieve
+
+[source]
+----
+GET /kids/:id
+----
+
+== Update
+
+[source]
+----
+PUT /kids/:id
+PATCH /kids/:id
+----
+
+== Delete
+
+[source]
+----
+DELETE /kids/:id
+----
+
+
+== List
+
+THINK OF THE CHILDREN
+
+[source]
+----
+GET /kids
+----
+
+== Cards
+
+Cards that the kid has.
+
+[source]
+----
+GET /kids/:id/cards
+----
+
+
+// vim: set ft=asciidoc:

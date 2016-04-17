@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title><%= current_page.data.title || "The Middleman" %></title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <%= stylesheet_link_tag "materialize/materialize", "pygments", "iconic-glyphs", "documentation", "layout" %>
+  </head>
+
+  <body class="<%= page_classes %>">
+    <div id="sidebar">
+      <div class="sidebar-nav">
+        <h5 class="sidebar-nav-heading">Introduction</h5>
+        <ul class="sidebar-nav-items">
+          <li><a href="/" class="sidebar-nav-item">Introduction</a></li>
+        </ul>
+
+        <h5 class="sidebar-nav-heading">Topics</h5>
+        <ul class="sidebar-nav-items">
+          <li><a href="/authentication" class="sidebar-nav-item">Authentication</a></li>
+          <li><a href="/data-types" class="sidebar-nav-item">Data Types</a></li>
+          <li><a href="/expanding-objects" class="sidebar-nav-item">Expanding Objects</a></li>
+          <li><a href="/pagination" class="sidebar-nav-item">Pagination</a></li>
+          <li><a href="/validation-errors" class="sidebar-nav-item">Validation Errors</a></li>
+        </ul>
+
+        <h5 class="sidebar-nav-heading">Methods</h5>
+        <ul class="sidebar-nav-items">
+          <li>
+            <a href="/cards" class="sidebar-nav-item">Cards</a>
+            <a href="/kids" class="sidebar-nav-item">Kids</a>
+            <a href="/users" class="sidebar-nav-item">Users</a>
+            <ul class="sidebar-nav-items">
+              <li><a href="/users/change-email" class="sidebar-nav-item">Change Email</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="main">
+      <div class="row">
+        <div class="col l8 s12">
+          <a id="sidebar-opener" href="#">
+            <span class="iconic iconic-md" data-glyph="menu"></span>
+          </a>
+
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
+    <%= javascript_include_tag "jquery", "materialize", "snap" %>
+    <script>
+      $(document).ready(function() {
+        $('.sidebar-nav-item').each(function() {
+            // strip trailing slashes
+            var href = $(this).attr('href').replace(/\/$/, '');
+            var pathname = window.location.pathname.replace(/\/$/, '');
+            if (href === pathname)
+                $(this).addClass('selected');
+        });
+
+        $('.sidebar-nav-items .sidebar-nav-items').each(function() {
+          if ($(this).siblings('a.selected').length > 0)
+            $(this).addClass('expanded')
+          if ($(this).find('a.selected').length > 0)
+            $(this).addClass('expanded')
+        });
+
+        var snapper = new Snap({
+            element: document.getElementById('main'),
+            disable: 'right',
+            touchToDrag: false
+        });
+
+        $('#sidebar-opener').click(function() {
+          if( snapper.state().state=="left" ){
+            snapper.close();
+          } else {
+            snapper.open('left');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

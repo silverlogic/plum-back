@@ -1,0 +1,99 @@
+---
+title: Users
+---
+
+# Users
+
+* TOC
+{:toc}
+
+
+## Object
+
+Name | Type | Description
+---- | ---- | -----------
+`id` | `int` | unique identifier
+`email` | `string`
+`parent` | `hash` | Parent profile information.
+`parent[first_name]` | `string`
+`parent[last_name]` | `string`
+`parent[avatar]` | [`image`](`/data-types`)
+
+<%= json :user %>
+
+## Register (create)
+
+Register a new user.  Returns the user object.
+
+    POST /register
+
+### Input
+
+Name | Type | Description
+---- | ---- | -----------
+`email` | `string` | **Required**
+`password` | `string` |  **Required**
+
+
+### Output
+
+<%= json :user %>
+
+
+## Login
+
+Retrieve an auth token for the specified user.  See [Authentication](/authentication) for how to use it.
+
+    POST /login
+
+### Input
+
+Name | Type | Description
+---- | ---- | -----------
+`email` | `string` | **Required**
+`password` | `string` | **Required**
+
+### Output
+
+<%= json :auth_token %>
+
+
+## Login Facebook
+
+Retrieve an auth token for the user using facebook.  Will create the user if they don't already exist.
+
+    POST /login/facebook
+
+### Input
+
+Name | Type | Description
+---- | ---- | -----------
+`token` | `string` | Access token retrieved from facebook SDk.
+
+
+## Me
+
+Get the currently logged in user.
+
+    GET /users/me
+
+## Change Password
+
+Change the password of the currently logged in user.
+
+    POST /users/change-password
+
+### Input
+
+Name | Type | Description
+---- | ---- | -----------
+`current_password` | `string` **Required**
+`new_password` | `string`  **Required**
+
+
+## My Cards
+
+    GET /users/me_cards
+
+
+[//]: # vim: set ft=markdown:

@@ -1,0 +1,103 @@
+---
+title: Change Email
+---
+
+# Change Email
+
+* TOC
+{:toc}
+
+
+## Introduction
+
+Changing email is done in 3 steps, the user's email will not be chaged until all 3 are completed:
+
+1. [Request a change](#request-change-step-1)
+2. [Confirm the change from the old email address](#confirm-change-step-2)
+3. [Verify the new email](#verify-new-email-step-3)
+
+To find out what state of change the user's email is in you can use the user's new_email and is_new_email_confirmed attributes
+as follows:
+
+* If `new_email` is an empty string, the user is not trying to change their email.
+* If `new_email` is non-empty and `is_new_email_confirmed` is false, the user has completed step 1 and needs to click the link in the email.
+* If `new_email` is non-empty and `is_new_email_confirmed` is true, the user has completed step 2 and needs to click the link in the email.
+
+
+## Request Change (Step 1)
+
+**Authentication Required**
+
+This begins the process of changing an email.  Once this step is completed a confirmation email will be sent
+to the user's **old** email with a link to `<frontend>/change-email/<token>`.  The token will be used in the next step and
+expires after 24 hours.
+
+    POST /todo/change-email/
+
+### Input
+
+Name | Type | Description
+---- | ---- | -----------
+`new_email` | `string` | The email to change to.
+
+
+## Confirm Change (Step 2)
+
+**Authentication IS NOT required**
+
+The second step is confirming that the user has control over the original email.  Once this step is completed
+an email will be sent to the user's **new** email with a link to `<frontend>/change-email-verify/<token>`.  The token
+will be used in the last step and expires after 24 hours.  After this `user.is_new_email_confirmed` will be `true`.
+
+    POST /todo/change-email/confirm/
+
+### Input
+
+Name | Type | Description
+---- | ---- | -----------
+`token` | `string` | Token from the URL in the email sent in step 1.
+
+
+## Verify New Email (Step 3)
+
+**Authentication IS NOT required**
+
+The last step is verifying that the user has control over the new email.  Once this step is completed the user's
+email will be change and they will no longer be able to use the old email to login.
+
+    POST /todo/change-email/verify/
+
+Name | Type | Description
+---- | ---- | -----------
+`token` | `string` | Token from the URL in the email sent in step 2.
+
+
+## Resend Confirmation Email
+
+**Authentication Required**
+
+If for some reason the user does not receive the confirmation email (sent in step 1) they can have it resent.
+
+    POST /todo/change-email/resend/
+
+
+## Resend Verification Email
+
+**Authentication Required**
+
+If for some reason the user does not receive the verification email (sent in step 2) they can have it resent.
+
+    POST /todo/change-email/verify-resend/
+
+
+## Cancel Change
+
+**Authentication Required**
+
+If at any time during the change email process the user decides that they don't want
+to change their email, they can cancel it.
+
+    POST /todo/change-email/cancel/
+
+
+[//]: # vim: set ft=markdown:
