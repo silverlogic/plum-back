@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.family',
     'apps.cards',
+    'apps.chores',
 ]
 
 MIDDLEWARE_CLASSES = [

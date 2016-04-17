@@ -8,6 +8,8 @@ from apps.api.serializers import ModelSerializer
 from apps.family.models import Parent
 from apps.users.models import User
 
+from ..kids.serializers import KidSerializer
+
 
 class AvatarSerializer(serializers.Serializer):
     image = Base64ImageField(required=False, allow_null=True, write_only=True)
@@ -29,10 +31,11 @@ class ParentSerializer(ModelSerializer):
 
 class UserSerializer(ModelSerializer):
     parent = ParentSerializer()
+    kid = KidSerializer()
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'parent')
+        fields = ('id', 'email', 'parent', 'kid')
 
 
 class ChangePasswordSerializer(serializers.Serializer):

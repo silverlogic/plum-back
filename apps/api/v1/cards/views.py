@@ -1,9 +1,9 @@
-from rest_framework import mixins, permissions, viewsets
+from rest_framework import mixins, permissions, viewsets, filters
 
-from apps.cards.models import Card, Rule
+from apps.cards.models import Card, Rule, Transaction
 
 from ...mixins import DestroyModelMixin
-from .serializers import CardSerializer, TransferSerializer, RuleSerializer, VisaStrategy
+from .serializers import CardSerializer, TransferSerializer, RuleSerializer, VisaStrategy, TransactionSerializer
 
 
 class CardsViewSet(mixins.CreateModelMixin,
@@ -34,6 +34,7 @@ class RulesViewSet(mixins.CreateModelMixin,
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.filter(card__family=self.request.user.parent.family)
+        return queryset
 
     def perform_delete(self, instance):
         rule = instance
@@ -64,3 +65,18 @@ class TransfersViewSet(mixins.CreateModelMixin,
                        viewsets.GenericViewSet):
     serializer_class = TransferSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class TransactionFilter(filters.FilterSet):
+    class Meta:
+        model = Transaction
+        fields = ('card',)
+
+
+class TransactionViewSet(mixins.ListModelMixin,
+                         viewsets.GenericViewSet):
+    serializer_class = TransactionSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Transaction.objects.all()
+    filter_backends = [filters.DjangoFilterBackend]
+    filter_class = TransactionFilter

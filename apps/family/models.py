@@ -25,5 +25,8 @@ class Kid(models.Model):
     name = models.CharField(max_length=255)
     avatar = models.ImageField(null=True, blank=True)
 
+    savings_match = models.DecimalField(max_digits=20, decimal_places=4, default=0)
+    allowance = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+
     def __str__(self):
         return self.name

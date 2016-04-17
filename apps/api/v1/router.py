@@ -19,13 +19,17 @@ from .users.views import UsersViewSet  # noqa
 router.register(r'users', UsersViewSet, base_name='users')
 
 # Cards
-from .cards.views import CardsViewSet, RulesViewSet, TransfersViewSet  # noqa
+from .cards.views import CardsViewSet, RulesViewSet, TransfersViewSet, TransactionViewSet  # noqa
 
 router.register(r'cards', CardsViewSet, base_name='cards')
 router.register(r'rules', RulesViewSet, base_name='rules')
 router.register(r'transfers', TransfersViewSet, base_name='transfers')
+router.register(r'transactions', TransactionViewSet, base_name='transactions')
 
 # Family
 from .kids.views import KidsViewSet  # noqa
 
 router.register(r'kids', KidsViewSet, base_name='kids')
+
+from .chores.views import ChoresViewSet  # noqa
+router.register(r'chores', ChoresViewSet, base_name='chores')

@@ -36,12 +36,14 @@ class LoginSerializer(serializers.Serializer):
 
 class FacebookLoginSerializer(serializers.Serializer):
     token = serializers.CharField()
+    invite_code = serializers.CharField(required=False)
 
     def create(self, validated_data):
         backend = 'facebook'
         redirect_uri = reverse('social:complete', args=(backend,))
         social_strategy = load_strategy(self.context['request'])
         backend = load_backend(social_strategy, backend, redirect_uri)
+        backend.invite_code = validated_data.get('invite_code')
 
         try:
             user = backend.do_auth(validated_data['token'])

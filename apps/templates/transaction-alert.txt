@@ -1,0 +1,12 @@
+Hi,
+
+A transaction has occured on your kid's card ending in the numbers {{ last_4 }}.
+
+Amount: {{ transaction.amount }}
+Where: {{ transaction.merchant_name }}
+
+{% if transaction.status == transaction.Status.approved %}
+The transaction was approved.
+{% else %}
+The transaction was not approved.
+{% endif %}

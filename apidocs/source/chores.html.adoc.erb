@@ -1,0 +1,65 @@
+---
+title: Chores
+---
+
+= Chores
+
+
+== Object
+
+[cols="2,1,5"]
+|===
+|Name |Type |Description
+
+|`id` | `int` |
+|`kid` | `int` |
+|`name` | `string` |
+|`points` | `number` |
+|`status` | `string` | Possible values: `complete` or `incomplete`.
+`
+|===
+
+=== Example
+
+++++
+<%= json :chore %>
+++++
+
+
+== Create
+
+[source]
+----
+POST /chores
+----
+
+
+== Update
+
+[source]
+----
+PUT /chores/:id
+PATCH /chores/:id
+----
+
+
+== List
+
+[source]
+----
+GET /chores
+----
+
+=== Parameters
+
+[cols="2,5"]
+|===
+|Name |Description
+
+|`kid` | Only chores that the kid has to do.
+|`status` | Only chores that are in the specified status.
+|===
+
+
+
+// vim: set ft=asciidoc:

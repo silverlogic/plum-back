@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 import requests
 from rest_framework import serializers
 
-from apps.cards.models import Card, Transfer, Rule
+from apps.cards.models import Card, Transfer, Rule, Transaction
 from apps.family.models import Kid, Parent
 
 from ...serializers import ModelSerializer
@@ -26,8 +26,9 @@ class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
         fields = ('id', 'owner_type', 'owner_id', 'name_on_card',
-                  'number', 'expiration_date', 'type', 'sub_type',)
-        read_only_fields = ('type', 'sub_type',)
+                  'number', 'expiration_date', 'type', 'sub_type',
+                  'amount_spent', 'amount_on_card',)
+        read_only_fields = ('type', 'sub_type', 'amount_spent', 'amount_on_card',)
 
     def create(self, validated_data):
         visa_strategy = VisaStubStrategy()
@@ -47,6 +48,29 @@ class RuleSerializer(ModelSerializer):
 
     def create(self, validated_data):
         visa_strategy = VisaStrategy()
+
+        for rule in validated_data['card'].rules.all():
+            if rule.type == rule.Type.global_:
+                params = {
+                    'globalControl': {
+                        'isControlEnabled': True,
+                        'shouldDeclineAll': True,
+                        'shouldAlertOnDecline': True,
+                    }
+                }
+            else:
+                params = {
+                    'merchantControls': [
+                        {
+                            'controlType': rule.merchant_type,
+                            'isControlEnabled': True,
+                            'shouldDeclineAll': True,
+                            'shouldAlertOnDecline': True
+                        }
+                    ]
+                }
+            visa_strategy.delete_rule(rule.card.visa_document_id, **params)
+            rule.delete()
 
         rule = super().create(validated_data)
         if not rule.card.visa_document_id:
@@ -120,6 +144,12 @@ class TransferSerializer(ModelSerializer):
         )
         visa_strategy.push_funds()
         return super().create(validated_data)
+
+
+class TransactionSerializer(ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = ('id', 'card', 'amount', 'merchant_name', 'status', 'when',)
 
 
 class VisaStubStrategy:

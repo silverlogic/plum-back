@@ -1,0 +1,45 @@
+---
+title: Transactions
+---
+
+= Transactions
+
+== Object
+
+[cols="2,1,5"]
+|===
+|Name |Type |Description
+
+|`id` | `int` |
+|`card` | `int` |
+|`amount` | `number` |
+|`merchant_name` | `string` |
+|`status` | `string` | Possible values: `approved` or `declined`.
+|`when` | `datetime` |
+|===
+
+=== Example
+
+++++
+<%= json :transaction %>
+++++
+
+
+== List
+
+[source]
+----
+GET /transactions
+----
+
+=== Input
+
+[cols="2,5"]
+|===
+|Name |Description
+
+|`card` | Only cards with specified id.
+|===
+
+
+// vim: set ft=asciidoc:

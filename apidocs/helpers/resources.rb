@@ -62,7 +62,17 @@ module Resources
       number: '4856200001123821',
       expiration_date: '2018-06-01',
       type: 'C',
-      sub_type: 'R'
+      sub_type: 'R',
+      amount_on_card: '0.00',
+      amount_spent: '0.00'
+  }
+
+  CHORE ||= {
+      id: 1,
+      kid: 1,
+      name: 'Take out the trash',
+      points: '34',
+      status: 'incomplete'
   }
 
   KID ||= {
@@ -80,6 +90,15 @@ module Resources
           'MCT_RECREATION',
           'MCT_ELECTRONICS',
       ]
+  }
+
+  TRANSACTION ||= {
+      id: 1,
+      card: 1,
+      amount: '35.25',
+      merchant_name: 'Costco',
+      status: 'approved',
+      when: '2016-09-10T12:34:12'
   }
 
   USER ||= {
